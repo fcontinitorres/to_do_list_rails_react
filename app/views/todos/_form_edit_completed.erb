@@ -1,0 +1,31 @@
+<%# form_with(model: todo) do |form| %>
+<%# render "form", todo: @todo, url: update_completed_todo_path(@todo), method: :patch %>
+
+<%= form_with(model: todo, url: update_completed_todo_path(@todo), method: :patch) do |form| %>
+
+  <% if todo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+
+      <ul>
+        <% todo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# descricao do nome que não pode ser editado %>
+  <div>
+    <p><%= @todo.name %></p>
+  </div>
+
+  <div>
+    <%= form.label :completed, style: "display: block" %>
+    <%= form.checkbox :completed %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

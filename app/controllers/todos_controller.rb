@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :set_todo, only: %i[ show edit update_completed destroy ]
 
   # GET /todos or /todos.json
   def index
@@ -35,9 +35,10 @@ class TodosController < ApplicationController
   end
 
   # PATCH/PUT /todos/1 or /todos/1.json
-  def update
+  # Esse metodo só deve alterar o field "completed" do registro.
+  def update_completed
     respond_to do |format|
-      if @todo.update(todo_params)
+      if @todo.update(completed: params[:todo][:completed])
         format.html { redirect_to @todo, notice: "Todo was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @todo }
       else
