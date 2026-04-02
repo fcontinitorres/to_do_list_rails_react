@@ -38,7 +38,8 @@ class TodosController < ApplicationController
   # Esse metodo só deve alterar o field "completed" do registro.
   def update_completed
     respond_to do |format|
-      if @todo.update(completed: params[:todo][:completed])
+      # params[:todo][:completed]
+      if @todo.update(completed: todo_params[:todo][:completed])
         format.html { redirect_to @todo, notice: "Todo was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @todo }
       else
