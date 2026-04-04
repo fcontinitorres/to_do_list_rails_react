@@ -3,11 +3,20 @@ class TodosController < ApplicationController
 
   # GET /todos or /todos.json
   def index
-    @todos = Todo.all
+    @todos = Todo.order(created_at: :desc)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @todos }
+    end
   end
 
   # GET /todos/1 or /todos/1.json
   def show
+    respond_to do |format|
+      format.html # renderiza show.html.erb
+      format.json { render json: @todo }
+    end
   end
 
   # GET /todos/new
@@ -39,8 +48,8 @@ class TodosController < ApplicationController
   def update_completed
     respond_to do |format|
       # params[:todo][:completed]
-      if @todo.update(completed: todo_params[:todo][:completed])
-        format.html { redirect_to @todo, notice: "Todo was successfully updated.", status: :see_other }
+      if @todo.update(completed: todo_params[:completed])
+        format.html { redirect_to todos_path, notice: "Todo was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @todo }
       else
         format.html { render :edit, status: :unprocessable_entity }
