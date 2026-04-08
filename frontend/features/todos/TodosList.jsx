@@ -2,6 +2,7 @@
 
 // API_URL comes from .env.development file
 import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../src/constants";
 
 function TodosList() {
@@ -27,7 +28,9 @@ function TodosList() {
         <div>
             { todos_list.map(todo => (
                 <div key={todo.id} className="todos-container">
-                    <h2>{todo.name}</h2>
+                    <Link to={`/todos/${todo.id}`} className="todo-title">
+                        <h2>{todo.name}</h2>
+                    </Link>
                     <p>{todo.completed ? "Completed" : "Not completed"}</p>
                 </div>
             ))}
