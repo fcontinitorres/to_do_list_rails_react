@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
+  # Pular a verificacao de token CSRF para teste no Postman e frontend n precisar se preocupar com isso.
+  skip_before_action :verify_authenticity_token, only: [ :create ]
   before_action :set_todo, only: %i[ show edit update_completed destroy ]
 
   # GET /todos or /todos.json
