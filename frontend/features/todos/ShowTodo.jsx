@@ -1,5 +1,6 @@
+// Componente responsavel por mostrar detalhes do To_Do selecionado
 import React, {useState, useEffect} from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { API_URL } from "../../src/constants";
 
 function ShowTodo() {

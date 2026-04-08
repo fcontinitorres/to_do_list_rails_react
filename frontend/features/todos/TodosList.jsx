@@ -1,3 +1,5 @@
+// Componente responsavel por mostrar a lista de to_do em looping
+
 // API_URL comes from .env.development file
 import React, {useState, useEffect} from "react";
 import { API_URL } from "../../src/constants";
