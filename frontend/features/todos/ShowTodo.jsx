@@ -1,20 +1,19 @@
 // Componente responsavel por mostrar detalhes do To_Do selecionado
 import React, {useState, useEffect} from "react";
 import { useParams, Link } from "react-router-dom";
-import { API_URL } from "../../src/constants";
+import { showTodoService } from "../../src/services/todoService";
 
 function ShowTodo() {
     const [show_todo, setTodo] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
-        async function fetcCurrentTodo(){
-            const responseAPI = await fetch(`${API_URL}/${id}.json`);
-            const json = await responseAPI.json();
-            setTodo(json);
+        async function fetchCurrentTodo(){
+            const data = await showTodoService(id)
+            setTodo(data);
         };
         
-        fetcCurrentTodo();
+        fetchCurrentTodo();
     }, [id]);
 
     if (!show_todo){

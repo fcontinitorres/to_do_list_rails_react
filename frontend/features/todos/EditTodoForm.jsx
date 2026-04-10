@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../../src/constants";
+import { showTodoService, updateTodoService } from "../../src/services/todoService";
 
 function EditTodoForm() {
     const [editTodo, setTodo] = useState(null);
@@ -9,29 +9,31 @@ function EditTodoForm() {
 
     useEffect(() => {
         async function fetcCurrentTodo(){
-            const responseAPI = await fetch(`${API_URL}/${id}/edit.json`);
-            const json = await responseAPI.json();
-            setTodo(json);
+            try{
+                const data = await showTodoService(id);
+                setTodo(data);
+            } catch (error) {
+                console.error("Error fetching To Do:", error);
+                alert(`Error fetching To Do: ${error.message}`);
+                return;
+            }
         };
-        
         fetcCurrentTodo();
     }, [id]);
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const responseAPI = await fetch(`${API_URL}/${id}/update_completed.json`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(editTodo)
-        });
-
-        if (responseAPI.ok) {
-            const json = await responseAPI.json();
-            navagate(`/todos/${json.id}`);
-        } else {
-            alert("Error updating To Do");
+        try {
+            const data = await updateTodoService(id, editTodo);
+            if (data) {
+                navagate(`/todos/${data.id}`);
+            } else {
+                alert("Error updating To Do");
+            }
+        }catch (error) {
+            console.error("Error updating To Do:", error);
+            alert(`Error updating To Do: ${error.message}`);
+            return;
         }
     };
 

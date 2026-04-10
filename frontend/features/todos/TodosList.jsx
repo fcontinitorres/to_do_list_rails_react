@@ -1,9 +1,9 @@
 // Componente responsavel por mostrar a lista de to_do em looping
 
-// API_URL comes from .env.development file
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import { API_URL } from "../../src/constants";
+// API_URL comes from .env.development file
+import {fetchAllTodos, refactoryDeleteTodo} from "../../src/services/todoService";
 
 function TodosList() {
     // todos is the state variable that will hold the list of to_do items, starting empty
@@ -13,9 +13,8 @@ function TodosList() {
     // Fetch to_do from the API
     useEffect(() => {
         async function loadTodos(){
-            const responseAPI = await fetch(`${API_URL}.json`);
-            const json = await responseAPI.json();
-            setTodos(json);
+            const data = await fetchAllTodos();
+            setTodos(data);
         }
         
         loadTodos();
@@ -23,26 +22,11 @@ function TodosList() {
 
     async function deleteTodo(id) {
         try{
-            const responseAPI = await fetch(`${API_URL}/${id}.json`, {
-                method: "DELETE",
-            });
-
-            if (responseAPI.ok) {
-                // Para DELETE, o Rails retorna 204 No Content, sem corpo JSON
-                if (responseAPI.status === 204) {
-                    // Atualiza a lista de to_do removendo o item deletado
-                    setTodos(todos_list.filter(todo => todo.id !== id));
-                } else {
-                    // Caso retorne JSON (não é o caso padrão para DELETE)
-                    const json = await responseAPI.json();
-                    console.log(json);
-                    setTodos(todos_list.filter(todo => todo.id !== id));
-                }
-            } else {
-                throw responseAPI;
-            }
+            await refactoryDeleteTodo(id);
+            // Atualiza a lista de to_do removendo o item deletado
+            setTodos(todos_list.filter(todo => todo.id !== id));
         } catch (error) {
-            alert("Error deleting To Do");
+            console.error("Error deleting To Do:", error);
         }
     };
 
@@ -64,3 +48,23 @@ function TodosList() {
 }
 
 export default TodosList;
+
+// --- deleteTodo before refactor --- \\
+// const responseAPI = await fetch(`${API_URL}/${id}.json`, {
+//     method: "DELETE",
+// });
+
+// if (responseAPI.ok) {
+//     // Para DELETE, o Rails retorna 204 No Content, sem corpo JSON
+//     if (responseAPI.status === 204) {
+//         // Atualiza a lista de to_do removendo o item deletado
+//         setTodos(todos_list.filter(todo => todo.id !== id));
+//     } else {
+//         // Caso retorne JSON (não é o caso padrão para DELETE)
+//         const json = await responseAPI.json();
+//         console.log(json);
+//         setTodos(todos_list.filter(todo => todo.id !== id));
+//     }
+// } else {
+//     throw responseAPI;
+// }
