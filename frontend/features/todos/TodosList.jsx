@@ -21,6 +21,31 @@ function TodosList() {
         loadTodos();
     }, []);
 
+    async function deleteTodo(id) {
+        try{
+            const responseAPI = await fetch(`${API_URL}/${id}.json`, {
+                method: "DELETE",
+            });
+
+            if (responseAPI.ok) {
+                // Para DELETE, o Rails retorna 204 No Content, sem corpo JSON
+                if (responseAPI.status === 204) {
+                    // Atualiza a lista de to_do removendo o item deletado
+                    setTodos(todos_list.filter(todo => todo.id !== id));
+                } else {
+                    // Caso retorne JSON (não é o caso padrão para DELETE)
+                    const json = await responseAPI.json();
+                    console.log(json);
+                    setTodos(todos_list.filter(todo => todo.id !== id));
+                }
+            } else {
+                throw responseAPI;
+            }
+        } catch (error) {
+            alert("Error deleting To Do");
+        }
+    };
+
     return (
         <>
         <div>
@@ -30,6 +55,7 @@ function TodosList() {
                         <h2>{todo.name}</h2>
                     </Link>
                     <p>{todo.completed ? "Completed" : "Not completed"}</p>
+                    <button className="delete-button" onClick={() => deleteTodo(todo.id)} >Delete </button>
                 </div>
             ))}
         </div>
