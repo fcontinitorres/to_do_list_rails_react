@@ -9,8 +9,6 @@ function TodosList() {
     // todos is the state variable that will hold the list of to_do items, starting empty
     // setTodos is the function that we will use to update the todos state
     const [todos_list, setTodos] = useState([]);
-    const [, setLoading] = useState(true);
-    const [, setError] = useState(null);
 
     // Fetch to_do from the API
     useEffect(() => {

@@ -14,6 +14,7 @@ function App() {
       <h1>React Client - To Do List</h1>
       <p> Find this application layout in frontend/src/App.jsx</p>
       <NavBar />
+      {/* Observacao sobre Routes. Ele garante a renderizacao correta de acordo com a rota selecionada */}
       <AppRoutes />
     </div>
     </Router>
