@@ -163,3 +163,10 @@ docker run -p 3000:3000 todo-list-app
 - ✅ React: 19.2.4
 - ✅ Vite: 8.0.1
 - ✅ Node.js: ^18.0.0
+
+
+## Instalando bibliotecas React
+- **Create Vite React Project** - Npm create vite@latest; npm install 
+- **Loading environment variables from file .env** - npm install dotenv
+- **React Router Dom** -  npm i react-router-dom
+
