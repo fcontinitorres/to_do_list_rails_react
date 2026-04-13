@@ -2,14 +2,14 @@
 
 Uma aplicação full-stack para gerenciamento de tarefas (ToDo List) construída com Rails no backend e React no frontend.
 
-## 📋 Descrição do Projeto
+## Descrição do Projeto
 
 Este projeto é uma aplicação de duas partes que demonstra integração entre uma API REST robusta e uma interface moderna:
 
 - **Backend**: API REST construída com Rails 8.1.3 que fornece as operações CRUD para gerenciar tarefas
 - **Frontend**: Interface interativa construída com React 19.2.4 e Vite que consome a API
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 - **Ruby on Rails**: 8.1.3
@@ -25,7 +25,7 @@ Este projeto é uma aplicação de duas partes que demonstra integração entre 
 - **Variáveis de Ambiente**: dotenv 17.4.0
 - **Linter**: ESLint
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 to_do_list_rails_react/
@@ -53,7 +53,7 @@ to_do_list_rails_react/
 └── Dockerfile           # Configuração containerização
 ```
 
-## 🚀 Como Executar
+## Como Executar
 
 ### Pré-requisitos
 - Ruby 3.x
@@ -109,7 +109,7 @@ to_do_list_rails_react/
    npm run build
    ```
 
-## 📊 Funcionalidades
+## Funcionalidades
 
 ### CRUD de Tarefas
 
@@ -134,11 +134,11 @@ O backend retorna tarefas no seguinte formato:
 }
 ```
 
-## 🔌 Integração CORS
+## Integração CORS
 
 A API está configurada com **rack-cors** para aceitar requisições do frontend (cross-origin). Isso permite que a aplicação React em um domínio diferente (ou porta diferente em desenvolvimento) comunique com a API Rails.
 
-## 📝 Variáveis de Ambiente
+## Variáveis de Ambiente
 
 ### Backend (.env ou credentials.yml.enc)
 - `DATABASE_URL` - String de conexão PostgreSQL
@@ -147,7 +147,7 @@ A API está configurada com **rack-cors** para aceitar requisições do frontend
 ### Frontend (frontend/.env)
 - `VITE_API_URL` - URL base da API Rails
 
-## 🐳 Docker
+## Docker
 
 O projeto inclui um `Dockerfile` para containerização:
 
